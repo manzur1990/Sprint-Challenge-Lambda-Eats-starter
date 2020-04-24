@@ -1,4 +1,7 @@
 import React from "react";
+import {Link, Route} from 'react-router-dom';
+import Form from './components/Form';
+import Home from './components/Home';
 
 const App = () => {
   return (
