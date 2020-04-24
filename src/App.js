@@ -9,7 +9,7 @@ const App = () => {
         <h1>Lambda Eats</h1>
         <div>
           <Link to='/'>Home</Link>
-          <Link t0='/pizza'>Order Pizza</Link>
+          <Link to='/pizza' classNmae="orderBtn">Pizza?</Link>
         </div>
       </nav>
 
