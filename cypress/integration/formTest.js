@@ -10,7 +10,7 @@ describe("This is a test preformed on the Form section", () => {
         .type("Jon Doe")
         .should("have.value", "Jon Doe");
       cy.get('select')
-        .select('Large')
+        .select('medium')
         .should("have.value", "medium");
       cy.get('[for="pepperoni"] > input')
         .check()

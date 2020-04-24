@@ -29,7 +29,7 @@ const formSchema = yup.object().shape({
     pineapple: yup
         .boolean(true || false),
     specialInstructrion: yup
-        .string("")
+        .string()
 
 });
 
@@ -107,6 +107,13 @@ const Form = () => {
 
     return (
         <>
+
+            <div className="errors">
+                {errors.name}
+
+                {}
+
+            </div>
             <div className="form">
                 <form onSubmit={formSubmit}>
 
@@ -129,13 +136,14 @@ const Form = () => {
                             id="size"
                             name="size"
                             onChange={inputChange}
+
                         >
                             <option value="disabled={buttonDisabled}">Select Size:</option>
                             <option value="small">Small</option>
                             <option value="medium">Medium</option>
                             <option value="large">Large</option>
-
                         </select>
+
                     </label>
 
                     <h5>Toppings</h5>
