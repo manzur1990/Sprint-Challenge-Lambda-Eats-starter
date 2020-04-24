@@ -5,7 +5,7 @@ import {Link, Route} from 'react-router-dom';
 const Form = () => {
   return (
     <>
-      <h1>Home Page</h1>
+      <h1>Form Page</h1>
       
     </>
   );
