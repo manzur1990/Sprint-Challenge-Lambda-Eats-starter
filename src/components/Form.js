@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 import * as yup from "yup";
 import axios from "axios";
-
-// Post to: https://reqres.in/
 
 const formSchema = yup.object().shape({
     name: yup
         .string()
-        .required("Please enter your name")
-        .min(2, "Needs to be longer"),
-    size: yup
+        .required("*Please enter your name")
+        .min(2, "*Needs to be longer"),
+    select: yup
         .string()
-        .required("Please select a size"),
+        .required("*Please select a size"),
     ham: yup
         .boolean(true || false),
     pepperoni: yup
@@ -24,7 +23,7 @@ const formSchema = yup.object().shape({
         .boolean(true || false),
     onion: yup
         .boolean(true || false),
-    sunDriedTomatom: yup
+    sunDriedTomato: yup
         .boolean(true || false),
     pineapple: yup
         .boolean(true || false),
@@ -33,13 +32,13 @@ const formSchema = yup.object().shape({
 
 });
 
-const Form = () => {
+const UserForm = () => {
 
     const [buttonDisabled, setButtonDisabled] = useState(true)
 
     const [formState, setFormState] = useState({
         name: "",
-        size: "select",
+        select: "",
         specialInstructrion: ""
     });
 
@@ -53,10 +52,11 @@ const Form = () => {
 
     const [errors, setErrors] = useState({
         name: "",
-        size: "select",
+        select: "select",
         specialInstructrion: ""
-    });
 
+    });
+    console.log(errors)
     const validateChange = event => {
         yup
             .reach(formSchema, event.target.name)
@@ -84,7 +84,7 @@ const Form = () => {
 
                 setFormState({
                     name: "",
-                    size: "select",
+                    select: "select",
                     specialInstructrion: ""
                 });
             })
@@ -106,132 +106,127 @@ const Form = () => {
 
 
     return (
-        <>
-            <div className="form">
-                <form onSubmit={formSubmit}>
 
-                    <label htmlFor="name">
+        <div className="form">
+            <Form onSubmit={formSubmit}>
 
-                        <h5>Guest's Name:</h5>
+                <FormGroup>
+                    <Label htmlFor="name">
+                        <h3>Guest's Name:</h3>
+                    </Label>
+                    <Input
+                        type="text"
+                        name="name"
+                        value={formState.name}
+                        onChange={inputChange}
+                    />
+                </FormGroup>
+                <div className="errors"><h6>{errors.name}</h6></div>
 
-                        <input
-                            type="text"
-                            name="name"
-                            value={formState.name}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <label htmlFor="size">
+                <FormGroup>
+                    <Label htmlFor="select">
+                        <h3>Choose Your Size</h3>
+                    </Label>
+                    <div className="errors"><h6>{errors.select}</h6></div>
+                    <Input
+                        type="select"
+                        id="select"
+                        name="select"
+                        onChange={inputChange}
+                    >
+                        <option value="">Select Size:</option>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </Input>
+                </FormGroup>
 
-                        <h5>Choice of Size</h5>
-
-                        <select
-                            id="size"
-                            name="size"
-                            onChange={inputChange}
-                        >
-                            <option value="disabled={buttonDisabled}">Select Size:</option>
-                            <option value="small">Small</option>
-                            <option value="medium">Medium</option>
-                            <option value="large">Large</option>
-
-                        </select>
-                    </label>
-
-                    <h5>Toppings</h5>
-
-                    <h6>Meats:</h6>
-
-                    <label htmlFor="ham">Ham
+                <h3>Toppings</h3>
+                <h6>Meats:</h6>
+                <label htmlFor="ham">Ham
                 <input
-                            type="checkbox"
-                            name="ham"
-                            checked={formState.ham}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <br />
-                    <label htmlFor="pepperoni">Pepperoni
+                        type="checkbox"
+                        name="ham"
+                        checked={formState.ham}
+                        onChange={inputChange}
+                    />
+                </label>
+                <br />
+                <label htmlFor="pepperoni">Pepperoni
                 <input
-                            type="checkbox"
-                            name="pepperoni"
-                            checked={formState.pepperoni}
-                            onChange={inputChange}
-                        />
-                    </label>
-
-
-                    <h6>Veggies:</h6>
-
-                    <label htmlFor="babySpinach">Baby Spinach
+                        type="checkbox"
+                        name="pepperoni"
+                        checked={formState.pepperoni}
+                        onChange={inputChange}
+                    />
+                </label>
+                <h6>Veggies:</h6>
+                <label htmlFor="babySpinach">Baby Spinach
                 <input
-                            type="checkbox"
-                            name="babySpinach"
-                            checked={formState.babySpinach}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <br />
-                    <label htmlFor="mushrooms">Mushrooms
+                        type="checkbox"
+                        name="babySpinach"
+                        checked={formState.babySpinach}
+                        onChange={inputChange}
+                    />
+                </label>
+                <br />
+                <label htmlFor="mushrooms">Mushrooms
                 <input
-                            type="checkbox"
-                            name="mushrooms"
-                            checked={formState.mushrooms}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <br />
-                    <label htmlFor="garlic">Garlic
+                        type="checkbox"
+                        name="mushrooms"
+                        checked={formState.mushrooms}
+                        onChange={inputChange}
+                    />
+                </label>
+                <br />
+                <label htmlFor="garlic">Garlic
                 <input
-                            type="checkbox"
-                            name="garlic"
-                            checked={formState.garlic}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <br />
-                    <label htmlFor="onion">Onion
+                        type="checkbox"
+                        name="garlic"
+                        checked={formState.garlic}
+                        onChange={inputChange}
+                    />
+                </label>
+                <br />
+                <label htmlFor="onion">Onion
                 <input
-                            type="checkbox"
-                            name="onion"
-                            checked={formState.onion}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <br />
-                    <label htmlFor="sunDriedTomato">Sun Dried Tomato
+                        type="checkbox"
+                        name="onion"
+                        checked={formState.onion}
+                        onChange={inputChange}
+                    />
+                </label>
+                <br />
+                <label htmlFor="sunDriedTomato">Sun Dried Tomato
                 <input
-                            type="checkbox"
-                            name="sunDriedTomato"
-                            checked={formState.sunDriedTomato}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <br />
-                    <label htmlFor="pineapple">Pineapple
+                        type="checkbox"
+                        name="sunDriedTomato"
+                        checked={formState.sunDriedTomato}
+                        onChange={inputChange}
+                    />
+                </label>
+                <br />
+                <label htmlFor="pineapple">Pineapple
                 <input
-                            type="checkbox"
-                            name="pineapple"
-                            checked={formState.pineapple}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <br />
-                    <label htmlFor="specialInstructrion">
-                        <h4>Special Instructions</h4>
-                        <textarea
-                            name="specialInstructrion"
-                            value={formState.address}
-                            onChange={inputChange}
-                        />
-                    </label>
-                    <pre>{JSON.stringify(post, null, 2)}</pre>
-                    <button disabled={buttonDisabled}>Place Order</button>
-
-                </form>
-            </div>
-
-        </>
+                        type="checkbox"
+                        name="pineapple"
+                        checked={formState.pineapple}
+                        onChange={inputChange}
+                    />
+                </label>
+                <br />
+                <label htmlFor="specialInstructrion">
+                    <h3>Special Instructions</h3>
+                    <textarea
+                        name="specialInstructrion"
+                        value={formState.address}
+                        onChange={inputChange}
+                    />
+                </label>
+                <button disabled={buttonDisabled}>Place Order</button>
+            </Form>
+            <pre>{JSON.stringify(post)}</pre>
+        </div>
     );
 };
-export default Form;
+export default UserForm;
